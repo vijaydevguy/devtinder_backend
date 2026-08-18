@@ -11,7 +11,11 @@ require("./utils/cronjob");
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: [
+      /^http:\/\/localhost:\d+$/, // This allows ANY port on localhost (3000, 3001, 5173, etc.)
+      "https://devtinder-frontend-beta.vercel.app",
+      "https://devtinder-frontend-git-main-vijayakumarjob01-1350s-projects.vercel.app"
+    ],
     credentials: true,
   })
 );
