@@ -51,6 +51,8 @@ authRouter.post("/login", async (req, res) => {
       const token = await user.getJWT();
 
       res.cookie("token", token, {
+        // we should make as secure is true when goes production
+        secure: false,
         expires: new Date(Date.now() + 8 * 3600000),
       });
       res.send(user);
