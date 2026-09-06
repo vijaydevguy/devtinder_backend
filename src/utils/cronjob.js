@@ -42,3 +42,14 @@ cron.schedule("0 8 * * *", async () => {
     console.error(err);
   }
 });
+
+// This job will run once every 2 days (at midnight) to keep the database awake
+cron.schedule("0 0 */2 * *", async () => {
+  try {
+    // A simple query to keep the database connection alive
+    await ConnectionRequestModel.findOne().select('_id');
+    console.log("Database ping successful to keep it awake at", new Date().toISOString());
+  } catch (err) {
+    console.error("Error keeping database awake:", err);
+  }
+});
